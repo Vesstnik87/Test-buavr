@@ -82,7 +82,7 @@ class TrubaUpdate(UpdateView, GroupUchavr):
 
 
 # ВЫВОД РЕМОНТИРУЕМЫХ ТРУБ
-def getTrump():
+def getTrump(request):
     truba = Truba.objects.all()
     return JsonResponse({"truba": list(truba.values())})
 
