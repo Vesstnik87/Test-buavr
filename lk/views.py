@@ -73,6 +73,7 @@ class RemontDetail(DetailView, GroupUchastok):
 class TrubaDetail(DetailView, GroupUchastok):
     model = Truba
     slug_field = 'number'
+    template_name = 'lk/222.html'
 
 
 class TrubaUpdate(UpdateView, GroupUchavr):
