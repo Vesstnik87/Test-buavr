@@ -229,13 +229,17 @@ class Truba(models.Model):
     comment_1 = models.TextField(max_length=100, null=True, blank=True, verbose_name='Комментарий')
     comment_2 = models.TextField(max_length=30, null=True, blank=True, verbose_name='Комментарий')
     comment_3 = models.TextField(max_length=30, null=True, blank=True, verbose_name='Комментарий')
-
-
     uch_trub = models.ForeignKey('Uchastok', on_delete=models.PROTECT, verbose_name='Принадлежность к участку', blank=True)
     uch_trubid = models.IntegerField(null=True, blank=True)
+    trump_url = AutoSlugField('trump.url', max_length=100, db_index=True, unique=True, populate_from=instance_slug,
+                         slugify=slugify_value, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = uuslug(str(self.number), instance=self)
+        super(Truba, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("remont_truba", kwargs={"number": self.number})
+        return reverse("trump_detail", kwargs={"trump_url": self.trump_url})
 
 
     class Meta:
