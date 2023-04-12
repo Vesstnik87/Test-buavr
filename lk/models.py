@@ -189,7 +189,7 @@ class Truba(models.Model):
 
     def_1 = models.CharField(max_length=255, null=True, blank=True, verbose_name='Вид деффекта')
     def_1_type_rem = models.CharField(max_length=255, null=True, blank=True, verbose_name='Метод ремонта')
-    def_1_compl_rem = models.CharField(max_length=255, null=True, blank=True, verbose_name='')
+    def_1_compl_rem = models.CharField(max_length=255, null=True, blank=True, verbose_name='Работы выполнены')
     def_1_dop_1 = models.CharField(max_length=255, verbose_name='Дополнительное поле', null=True, blank=True)
     def_1_dop_2 = models.CharField(max_length=255, verbose_name='Дополнительное поле', null=True, blank=True)
     def_1_dop_3 = models.CharField(max_length=255, verbose_name='Дополнительное поле', null=True, blank=True)
@@ -231,7 +231,7 @@ class Truba(models.Model):
     comment_3 = models.TextField(max_length=30, null=True, blank=True, verbose_name='Комментарий')
     uch_trub = models.ForeignKey('Uchastok', on_delete=models.PROTECT, verbose_name='Принадлежность к участку', blank=True)
     uch_trubid = models.IntegerField(null=True, blank=True)
-    trump_url = AutoSlugField('trump.url', max_length=100, db_index=True, unique=True, populate_from=instance_slug,
+    slug = AutoSlugField('trump_url', max_length=100, db_index=True, unique=True, populate_from=instance_slug,
                          slugify=slugify_value, null=True)
 
     def save(self, *args, **kwargs):
@@ -239,7 +239,7 @@ class Truba(models.Model):
         super(Truba, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("trump_detail", kwargs={"trump_url": self.trump_url})
+        return reverse("trump_detail", kwargs={"trump_url": self.slug})
 
 
     class Meta:

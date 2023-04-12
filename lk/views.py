@@ -63,9 +63,10 @@ class RemontUchastki(ListView):
 
 
 # ИНОФРМАЦИЯ ПО РЕМОНТИРУЕМОМУ УЧАСТКУ
-class RemontDetail(DetailView, GroupUchastok):
+class RemontDetail(ListView, GroupUchastok):
     model = Uchastok
     slug_field = "slug"
+    template_name = 'lk/uchastok_detail.html'
     # pk_url_kwarg = 'uch_pk'
     extra_context = {'title': 'Ремонты', 'url_name': 'Вывод участка в ремонт', 'url_name_2': 'Текущие ремонты'}
 
